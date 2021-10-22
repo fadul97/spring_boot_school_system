@@ -7,26 +7,30 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Student implements Serializable {
+public class Subject implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
-    private String email;
+    private String professorName;
 
-    @ManyToMany(mappedBy = "students")
-    private List<Subject> subjects = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "SUBJECT_STUDENT",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Student> students = new ArrayList<>();
 
     // Constructors --------------------------------------
-    public Student() {
+    public Subject() {
     }
 
-    public Student(Integer id, String name, String email) {
+    public Subject(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.email = email;
     }
 
     // Getters and Setters --------------------------------------
@@ -46,20 +50,20 @@ public class Student implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProfessorName() {
+        return professorName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProfessorName(String professorName) {
+        this.professorName = professorName;
     }
 
-    public List<Subject> getSubjects() {
-        return subjects;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     // Equals and hashCode --------------------------------------
@@ -67,8 +71,8 @@ public class Student implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(id, student.id);
+        Subject subject = (Subject) o;
+        return Objects.equals(id, subject.id);
     }
 
     @Override
