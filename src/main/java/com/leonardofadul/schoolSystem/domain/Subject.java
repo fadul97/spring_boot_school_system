@@ -1,5 +1,7 @@
 package com.leonardofadul.schoolSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,8 +16,8 @@ public class Subject implements Serializable {
     private Integer id;
 
     private String name;
-    private String professorName;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "SUBJECT_STUDENT",
@@ -24,7 +26,7 @@ public class Subject implements Serializable {
     )
     private List<Student> students = new ArrayList<>();
 
-    // Constructors --------------------------------------
+    // Constructors
     public Subject() {
     }
 
@@ -33,7 +35,7 @@ public class Subject implements Serializable {
         this.name = name;
     }
 
-    // Getters and Setters --------------------------------------
+    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -50,14 +52,6 @@ public class Subject implements Serializable {
         this.name = name;
     }
 
-    public String getProfessorName() {
-        return professorName;
-    }
-
-    public void setProfessorName(String professorName) {
-        this.professorName = professorName;
-    }
-
     public List<Student> getStudents() {
         return students;
     }
@@ -66,7 +60,7 @@ public class Subject implements Serializable {
         this.students = students;
     }
 
-    // Equals and hashCode --------------------------------------
+    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -17,7 +17,7 @@ public class Professor implements Serializable {
     private String name;
     private String email;
 
-    // Constructors --------------------------------------
+    // Constructors
     public Professor(){
     }
 
@@ -27,7 +27,7 @@ public class Professor implements Serializable {
         this.email = email;
     }
 
-    // Getters and Setters --------------------------------------
+    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -52,7 +52,7 @@ public class Professor implements Serializable {
         this.email = email;
     }
 
-    // Equals and hashCode --------------------------------------
+    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

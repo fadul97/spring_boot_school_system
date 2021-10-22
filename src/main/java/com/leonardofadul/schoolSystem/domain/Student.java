@@ -1,5 +1,7 @@
 package com.leonardofadul.schoolSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,10 +18,11 @@ public class Student implements Serializable {
     private String name;
     private String email;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "students")
     private List<Subject> subjects = new ArrayList<>();
 
-    // Constructors --------------------------------------
+    // Constructors
     public Student() {
     }
 
@@ -29,7 +32,7 @@ public class Student implements Serializable {
         this.email = email;
     }
 
-    // Getters and Setters --------------------------------------
+    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -62,7 +65,7 @@ public class Student implements Serializable {
         this.subjects = subjects;
     }
 
-    // Equals and hashCode --------------------------------------
+    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
