@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Professor implements Serializable {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Professor implements Serializable {
     private String email;
 
     // Constructors --------------------------------------
-    public Professor(){
+    public Student() {
     }
 
-    public Professor(Integer id, String name, String email) {
+    public Student(Integer id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -57,8 +57,8 @@ public class Professor implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Professor professor = (Professor) o;
-        return Objects.equals(id, professor.id);
+        Student student = (Student) o;
+        return Objects.equals(id, student.id);
     }
 
     @Override
