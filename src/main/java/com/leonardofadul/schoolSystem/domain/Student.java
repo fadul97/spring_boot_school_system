@@ -1,12 +1,10 @@
 package com.leonardofadul.schoolSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Student implements Serializable {
@@ -18,9 +16,12 @@ public class Student implements Serializable {
     private String name;
     private String email;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToMany(mappedBy = "students")
     private List<Subject> subjects = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.student")
+    private Set<ClassGrade> grades = new HashSet<>();
 
     // Constructors
     public Student() {
@@ -33,6 +34,14 @@ public class Student implements Serializable {
     }
 
     // Getters and Setters
+    public List<Subject> getAllSubjects(){
+        List<Subject> subjectList = new ArrayList<>();
+        for(ClassGrade classGrade: grades){
+            subjectList.add(classGrade.getSubject());
+        }
+        return subjectList;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -63,6 +72,14 @@ public class Student implements Serializable {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public Set<ClassGrade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<ClassGrade> grades) {
+        this.grades = grades;
     }
 
     // Equals and hashCode

@@ -1,7 +1,9 @@
 package com.leonardofadul.schoolSystem;
 
+import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
+import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class SchoolSystemApplication implements CommandLineRunner {
 
 	@Autowired
 	private SubjectRepository subjectRepository;
+
+	@Autowired
+	private ClassGradeRepository classGradeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SchoolSystemApplication.class, args);
@@ -56,5 +61,40 @@ public class SchoolSystemApplication implements CommandLineRunner {
 
 		studentRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6, st7, st8));
 		subjectRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5));
+
+		ClassGrade cg1 = new ClassGrade(s1, st1);
+
+		ClassGrade cg2 = new ClassGrade(s2, st1);
+		ClassGrade cg3 = new ClassGrade(s2, st2);
+		ClassGrade cg4 = new ClassGrade(s2, st3);
+		ClassGrade cg5 = new ClassGrade(s2, st4);
+
+		ClassGrade cg6 = new ClassGrade(s3, st3);
+		ClassGrade cg7 = new ClassGrade(s3, st4);
+
+		ClassGrade cg8 = new ClassGrade(s4, st1);
+		ClassGrade cg9 = new ClassGrade(s4, st2);
+		ClassGrade cg10 = new ClassGrade(s4, st6);
+
+		ClassGrade cg11 = new ClassGrade(s5, st1);
+		ClassGrade cg12 = new ClassGrade(s5, st2);
+		ClassGrade cg13 = new ClassGrade(s5, st3);
+		ClassGrade cg14 = new ClassGrade(s5, st4);
+		ClassGrade cg15 = new ClassGrade(s5, st5);
+
+		st1.getGrades().addAll(Arrays.asList(cg1, cg2, cg8, cg11));
+		st2.getGrades().addAll(Arrays.asList(cg3, cg9, cg12));
+		st3.getGrades().addAll(Arrays.asList(cg4, cg6, cg13));
+		st4.getGrades().addAll(Arrays.asList(cg5, cg7, cg14));
+		st5.getGrades().add(cg15);
+		st6.getGrades().add(cg10);
+
+		s1.getGrades().add(cg1);
+		s2.getGrades().addAll(Arrays.asList(cg2, cg3, cg4, cg5));
+		s3.getGrades().addAll(Arrays.asList(cg6, cg7));
+		s4.getGrades().addAll(Arrays.asList(cg8, cg9, cg10));
+		s5.getGrades().addAll(Arrays.asList(cg11, cg12, cg13, cg14, cg15));
+
+		classGradeRepository.saveAll(Arrays.asList(cg1, cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9, cg10, cg11, cg12, cg13, cg14, cg15));
 	}
 }

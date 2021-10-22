@@ -1,12 +1,10 @@
 package com.leonardofadul.schoolSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Subject implements Serializable {
@@ -17,7 +15,7 @@ public class Subject implements Serializable {
 
     private String name;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "SUBJECT_STUDENT",
@@ -25,6 +23,9 @@ public class Subject implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private List<Student> students = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.subject")
+    private Set<ClassGrade> grades = new HashSet<>();
 
     // Constructors
     public Subject() {
@@ -58,6 +59,14 @@ public class Subject implements Serializable {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Set<ClassGrade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<ClassGrade> grades) {
+        this.grades = grades;
     }
 
     // Equals and hashCode
