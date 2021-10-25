@@ -5,6 +5,7 @@ import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -55,5 +56,16 @@ public class SubjectResource {
         List<Subject> subjects = professorService.findAllSubjects();
         List<SubjectDTO> subjectDTOList = subjects.stream().map(SubjectDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(subjectDTOList);
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<SubjectDTO>> findSubjectsPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction){
+        Page<Subject> subjects = professorService.findSubjectPage(page, linesPerPage, orderBy, direction);
+        Page<SubjectDTO> subjectDTOs = subjects.map(SubjectDTO::new);
+        return ResponseEntity.ok().body(subjectDTOs);
     }
 }
