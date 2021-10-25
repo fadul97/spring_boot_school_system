@@ -18,6 +18,7 @@ public class SubjectDTO implements Serializable {
     @NotEmpty(message = "Field 'name' required.")
     @Length(min = 2, max = 80, message = "Length must be between 2 and 80 characters.")
     private String name;
+
     private Set<StudentGrade> students = new HashSet<>();
 
     public SubjectDTO(){

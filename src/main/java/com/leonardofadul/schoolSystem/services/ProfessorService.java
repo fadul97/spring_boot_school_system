@@ -2,6 +2,7 @@ package com.leonardofadul.schoolSystem.services;
 
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
+import com.leonardofadul.schoolSystem.dto.StudentDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
@@ -26,11 +27,55 @@ public class ProfessorService {
     @Autowired
     private SubjectRepository subjectRepository;
 
+    // Students
     public Student findStudent(Integer id){
         Optional<Student> student = studentRepository.findById(id);
         return student.orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id + ". Type: " + Student.class.getName()));
     }
 
+    public Student insertStudent(Student student) {
+//        student.setId(null);
+//        return studentRepository.save(subject);
+        throw new UnsupportedOperationException();
+    }
+
+    public Student updateStudent(Student student) {
+        Student newStudent = findStudent(student.getId());
+        updateStudentData(newStudent, student);
+        return studentRepository.save(newStudent);
+    }
+
+    private void updateStudentData(Student newStudent, Student student){
+        newStudent.setName(student.getName());
+        newStudent.setEmail(student.getEmail());
+        newStudent.setSubjects(student.getSubjects());
+    }
+
+    public void deleteStudent(Integer id) {
+        try{
+            findStudent(id);
+            studentRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Failed. It is not possible to delete a student that still has classes.");
+        }
+    }
+
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public Page<Student> findStudentPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return studentRepository.findAll(pageRequest);
+    }
+
+    public Student fromStudentDTO(StudentDTO studentDTO) {
+        return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getEmail());
+    }
+
+
+
+    // Subjects
     public Subject findSubject(Integer id){
         Optional<Subject> subject = subjectRepository.findById(id);
         return subject.orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id + ". Type: " + Subject.class.getName()));
