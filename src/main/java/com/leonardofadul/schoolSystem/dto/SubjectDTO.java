@@ -1,17 +1,19 @@
 package com.leonardofadul.schoolSystem.dto;
 
 import com.leonardofadul.schoolSystem.domain.ClassGrade;
+import com.leonardofadul.schoolSystem.domain.StudentGrade;
 import com.leonardofadul.schoolSystem.domain.Subject;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SubjectDTO implements Serializable {
 
     private Integer id;
     private String name;
-    private Set<ClassGrade> students = new HashSet<>();
+    private Set<StudentGrade> students = new HashSet<>();
 
     public SubjectDTO(){
     }
@@ -19,7 +21,7 @@ public class SubjectDTO implements Serializable {
     public SubjectDTO(Subject subject){
         this.id = subject.getId();
         this.name = subject.getName();
-        this.students = subject.getGrades();
+        this.students = subject.getGrades().stream().map(StudentGrade::new).collect(Collectors.toSet());
     }
 
     public Integer getId() {
@@ -38,11 +40,11 @@ public class SubjectDTO implements Serializable {
         this.name = name;
     }
 
-    public Set<ClassGrade> getStudents() {
+    public Set<StudentGrade> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<ClassGrade> students) {
+    public void setStudents(Set<StudentGrade> students) {
         this.students = students;
     }
 }
