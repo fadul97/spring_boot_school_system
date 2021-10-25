@@ -1,7 +1,6 @@
 package com.leonardofadul.schoolSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +15,6 @@ public class Subject implements Serializable {
 
     private String name;
 
-    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "SUBJECT_STUDENT",

@@ -28,4 +28,9 @@ public class ProfessorService {
         Optional<Subject> subject = subjectRepository.findById(id);
         return subject.orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id + ". Type: " + Subject.class.getName()));
     }
+
+    public Subject insertSubject(Subject subject) {
+        subject.setId(null);
+        return subjectRepository.save(subject);
+    }
 }

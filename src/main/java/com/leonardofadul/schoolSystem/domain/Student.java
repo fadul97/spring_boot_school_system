@@ -1,6 +1,5 @@
 package com.leonardofadul.schoolSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class Student implements Serializable {
     private String name;
     private String email;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "students")
     private List<Subject> subjects = new ArrayList<>();
 
