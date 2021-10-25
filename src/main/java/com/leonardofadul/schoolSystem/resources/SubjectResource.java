@@ -1,5 +1,6 @@
 package com.leonardofadul.schoolSystem.resources;
 
+import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,16 @@ public class SubjectResource {
         subject = professorService.insertSubject(subject);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(subject.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody Subject updatedSubject, @PathVariable Integer id){
+        Subject subject = professorService.findSubject(id);
+
+        updatedSubject.setId(id);
+        updatedSubject.setStudents(subject.getStudents());
+        updatedSubject = professorService.updateSubject(updatedSubject);
+
+        return ResponseEntity.noContent().build();
     }
 }

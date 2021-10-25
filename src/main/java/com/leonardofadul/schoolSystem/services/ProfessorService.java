@@ -33,4 +33,9 @@ public class ProfessorService {
         subject.setId(null);
         return subjectRepository.save(subject);
     }
+
+    public Subject updateSubject(Subject subject) {
+        findSubject(subject.getId());
+        return subjectRepository.save(subject);
+    }
 }
