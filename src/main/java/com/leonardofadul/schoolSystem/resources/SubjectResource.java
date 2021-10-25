@@ -1,6 +1,5 @@
 package com.leonardofadul.schoolSystem.resources;
 
-import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
