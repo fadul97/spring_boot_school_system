@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,9 @@ public class ProfessorService {
         } catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Failed. It is not possible to delete a class that still has students enrolled.");
         }
+    }
+
+    public List<Subject> findAllSubjects() {
+        return subjectRepository.findAll();
     }
 }
