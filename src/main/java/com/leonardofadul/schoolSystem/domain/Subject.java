@@ -1,5 +1,6 @@
 package com.leonardofadul.schoolSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Subject implements Serializable {
     )
     private List<Student> students = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.subject")
     private Set<ClassGrade> grades = new HashSet<>();
 

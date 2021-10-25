@@ -1,5 +1,7 @@
 package com.leonardofadul.schoolSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.Objects;
 @Entity
 public class ClassGrade implements Serializable {
 
+    @JsonIgnore
     @EmbeddedId
     private ClassGradePK id = new ClassGradePK();
 
@@ -28,10 +31,12 @@ public class ClassGrade implements Serializable {
     }
 
     // Getters and Setters
+    @JsonIgnore
     public Subject getSubject(){
         return this.id.getSubject();
     }
 
+    @JsonIgnore
     public Student getStudent(){
         return this.id.getStudent();
     }

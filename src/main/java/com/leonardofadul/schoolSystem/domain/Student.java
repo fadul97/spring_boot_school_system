@@ -1,6 +1,7 @@
 package com.leonardofadul.schoolSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class Student implements Serializable {
     }
 
     // Getters and Setters
+    @JsonIgnore
     public List<Subject> getAllSubjects(){
         List<Subject> subjectList = new ArrayList<>();
         for(ClassGrade classGrade: grades){
