@@ -2,6 +2,7 @@ package com.leonardofadul.schoolSystem.services;
 
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
+import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
 import com.leonardofadul.schoolSystem.services.exceptions.DataIntegrityException;
@@ -61,5 +62,9 @@ public class ProfessorService {
     public Page<Subject> findSubjectPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return subjectRepository.findAll(pageRequest);
+    }
+
+    public Subject fromSubjectDTO(SubjectDTO subjectDTO) {
+        return new Subject(subjectDTO.getId(), subjectDTO.getName());
     }
 }

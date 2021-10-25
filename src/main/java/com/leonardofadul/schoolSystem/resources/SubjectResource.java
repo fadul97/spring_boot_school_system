@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,19 +29,22 @@ public class SubjectResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody Subject subject){
+    public ResponseEntity<Void> insert(@Valid @RequestBody SubjectDTO subjectDTO){
+        Subject subject = professorService.fromSubjectDTO(subjectDTO);
         subject = professorService.insertSubject(subject);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(subject.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Subject updatedSubject, @PathVariable Integer id){
+    public ResponseEntity<Void> update(@Valid @RequestBody SubjectDTO updatedSubjectDTO, @PathVariable Integer id){
+        Subject newSubject = professorService.fromSubjectDTO(updatedSubjectDTO);
+
         Subject subject = professorService.findSubject(id);
 
-        updatedSubject.setId(id);
-        updatedSubject.setStudents(subject.getStudents());
-        updatedSubject = professorService.updateSubject(updatedSubject);
+        newSubject.setId(id);
+        newSubject.setStudents(subject.getStudents());
+        newSubject = professorService.updateSubject(newSubject);
 
         return ResponseEntity.noContent().build();
     }

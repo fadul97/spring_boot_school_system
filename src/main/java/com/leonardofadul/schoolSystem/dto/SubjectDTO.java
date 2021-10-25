@@ -3,7 +3,9 @@ package com.leonardofadul.schoolSystem.dto;
 import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.StudentGrade;
 import com.leonardofadul.schoolSystem.domain.Subject;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
 public class SubjectDTO implements Serializable {
 
     private Integer id;
+
+    @NotEmpty(message = "Field 'name' required.")
+    @Length(min = 2, max = 80, message = "Length must be between 2 and 80 characters.")
     private String name;
     private Set<StudentGrade> students = new HashSet<>();
 
