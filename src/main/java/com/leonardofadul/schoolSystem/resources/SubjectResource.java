@@ -40,4 +40,10 @@ public class SubjectResource {
 
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Subject> delete(@PathVariable Integer id){
+        professorService.deleteSubject(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -4,8 +4,10 @@ import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
+import com.leonardofadul.schoolSystem.services.exceptions.DataIntegrityException;
 import com.leonardofadul.schoolSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -37,5 +39,14 @@ public class ProfessorService {
     public Subject updateSubject(Subject subject) {
         findSubject(subject.getId());
         return subjectRepository.save(subject);
+    }
+
+    public void deleteSubject(Integer id) {
+        try{
+            findSubject(id);
+            subjectRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Failed. It is not possible to delete a class that still has students enrolled.");
+        }
     }
 }
