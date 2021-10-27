@@ -25,9 +25,9 @@ public class StudentResource {
     private ProfessorService professorService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Student> find(@PathVariable Integer id){
+    public ResponseEntity<StudentDTO> find(@PathVariable Integer id){
         Student student = professorService.findStudent(id);
-        return ResponseEntity.ok().body(student);
+        return ResponseEntity.ok().body(new StudentDTO(student));
     }
 
     @PostMapping
