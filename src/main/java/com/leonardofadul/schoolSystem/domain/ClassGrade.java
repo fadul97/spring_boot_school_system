@@ -1,9 +1,11 @@
 package com.leonardofadul.schoolSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,7 +16,10 @@ public class ClassGrade implements Serializable {
     @EmbeddedId
     private ClassGradePK id = new ClassGradePK();
 
+    @NotEmpty(message = "Field 'name' required.")
+    @Length(min = 2, max = 80, message = "Length must be between 2 and 80 characters.")
     private String className;
+
     private String studentName;
     private Double grade1;
     private Double grade2;

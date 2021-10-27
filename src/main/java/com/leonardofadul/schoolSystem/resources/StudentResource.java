@@ -80,4 +80,11 @@ public class StudentResource {
         student = professorService.addSubjectToStudent(subject, student);
         return ResponseEntity.ok().body(student);
     }
+
+    @RequestMapping(value = "/changeGrades", method = RequestMethod.PUT)
+    public ResponseEntity<ClassGrade> changeGrade(@Valid @RequestBody ClassGrade classGradeFromRequest){
+        ClassGrade classGrade = professorService.findClassGrade(classGradeFromRequest);
+        classGrade = professorService.updateGrade(classGradeFromRequest);
+        return ResponseEntity.ok().body(classGrade);
+    }
 }

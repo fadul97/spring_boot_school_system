@@ -151,4 +151,24 @@ public class ProfessorService {
         subjectRepository.save(subject);
         return studentRepository.save(student);
     }
+
+    public ClassGrade findClassGrade(ClassGrade classGradeFromRequest) {
+        Optional<ClassGrade> classGrade = Optional.ofNullable(classGradeRepository.findByClassNameAndStudentName(classGradeFromRequest.getClassName(), classGradeFromRequest.getStudentName()));;
+        return classGrade.orElseThrow(() -> new ObjectNotFoundException("Object not found. Class name: " + classGradeFromRequest.getClassName() + ". Type: " + Subject.class.getName() + ". Student name: " + classGradeFromRequest.getStudentName() + ". Type: " + Student.class.getName()));
+    }
+
+    public ClassGrade updateGrade(ClassGrade classGrade){
+        ClassGrade newClassGrade = findClassGrade(classGrade);
+        updateClassGradeData(newClassGrade, classGrade);
+        return classGradeRepository.save(newClassGrade);
+    }
+
+    private void updateClassGradeData(ClassGrade newClassGrade, ClassGrade classGrade){
+        if(classGrade.getGrade1() != null){
+            newClassGrade.setGrade1(classGrade.getGrade1());
+        }
+        if(classGrade.getGrade2() != null){
+            newClassGrade.setGrade2(classGrade.getGrade2());
+        }
+    }
 }
