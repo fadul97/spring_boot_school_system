@@ -22,9 +22,9 @@ public class SubjectResource {
     private ProfessorService professorService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Subject> find(@PathVariable Integer id){
+    public ResponseEntity<SubjectDTO> find(@PathVariable Integer id){
         Subject subject = professorService.findSubject(id);
-        return ResponseEntity.ok().body(subject);
+        return ResponseEntity.ok().body(new SubjectDTO(subject));
     }
 
     @PostMapping
