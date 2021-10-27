@@ -1,6 +1,5 @@
 package com.leonardofadul.schoolSystem.dto;
 
-import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.SubjectGrade;
 import org.hibernate.validator.constraints.Length;

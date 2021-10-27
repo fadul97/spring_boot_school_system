@@ -1,14 +1,18 @@
 package com.leonardofadul.schoolSystem.resources;
 
 import com.leonardofadul.schoolSystem.domain.Student;
+import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
+import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +27,14 @@ public class StudentResource {
     public ResponseEntity<Student> find(@PathVariable Integer id){
         Student student = professorService.findStudent(id);
         return ResponseEntity.ok().body(student);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody StudentDTO studentDTO){
+        Student student = professorService.fromStudentDTO(studentDTO);
+        student = professorService.insertStudent(student);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(student.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
