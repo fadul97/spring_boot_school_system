@@ -48,6 +48,9 @@ public class ProfessorService {
     private void updateStudentData(Student newStudent, Student student){
         newStudent.setName(student.getName());
         newStudent.setEmail(student.getEmail());
+        newStudent.getGrades().forEach(classGrade -> {
+            classGrade.setStudentName(newStudent.getName());
+        });
         newStudent.setSubjects(student.getSubjects());
     }
 
@@ -87,8 +90,15 @@ public class ProfessorService {
     }
 
     public Subject updateSubject(Subject subject) {
-        findSubject(subject.getId());
-        return subjectRepository.save(subject);
+        Subject newSubject = findSubject(subject.getId());
+        updateSubjectData(newSubject, subject);
+        return subjectRepository.save(newSubject);
+    }
+
+    private void updateSubjectData(Subject newSubject, Subject subject){
+        newSubject.setName(subject.getName());
+        newSubject.setStudents(subject.getStudents());
+        newSubject.setGrades(subject.getGrades());
     }
 
     public void deleteSubject(Integer id) {
