@@ -98,6 +98,9 @@ public class ProfessorService {
     private void updateSubjectData(Subject newSubject, Subject subject){
         newSubject.setName(subject.getName());
         newSubject.setStudents(subject.getStudents());
+        newSubject.getGrades().forEach(classGrade -> {
+            classGrade.setClassName(newSubject.getName());
+        });
         newSubject.setGrades(subject.getGrades());
     }
 
