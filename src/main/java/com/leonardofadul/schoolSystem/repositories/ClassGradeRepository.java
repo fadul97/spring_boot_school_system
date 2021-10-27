@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassGradeRepository extends JpaRepository<ClassGrade, Integer>{
 
-    public ClassGrade findByClassNameAndStudentName(String className, String studentName);
+    ClassGrade findByClassNameAndStudentName(String className, String studentName);
 }

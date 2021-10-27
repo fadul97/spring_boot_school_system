@@ -2,14 +2,17 @@ package com.leonardofadul.schoolSystem.dto;
 
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.SubjectGrade;
+import com.leonardofadul.schoolSystem.services.validations.StudentInsert;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@StudentInsert
 public class StudentDTO {
 
     private Integer id;
@@ -20,7 +23,9 @@ public class StudentDTO {
 
     @NotEmpty(message = "Field 'email' required.")
     @Email
+    @Column(unique = true)
     private String email;
+
     private Set<SubjectGrade> subjects = new HashSet<>();
 
     public StudentDTO() {
