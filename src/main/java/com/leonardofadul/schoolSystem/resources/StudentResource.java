@@ -1,5 +1,6 @@
 package com.leonardofadul.schoolSystem.resources;
 
+import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
@@ -70,5 +71,13 @@ public class StudentResource {
         Page<Student> students = professorService.findStudentPage(page, linesPerPage, orderBy, direction);
         Page<StudentDTO> studentDTOs = students.map(StudentDTO::new);
         return ResponseEntity.ok().body(studentDTOs);
+    }
+
+    @RequestMapping(value = "/{id}/addSubjects", method = RequestMethod.PUT)
+    public ResponseEntity<Student> addSubject(@PathVariable Integer id, @Valid @RequestBody SubjectDTO subjectDTO){
+        Student student = professorService.findStudent(id);
+        Subject subject = professorService.findSubjectByName(subjectDTO.getName());
+        student = professorService.addSubjectToStudent(subject, student);
+        return ResponseEntity.ok().body(student);
     }
 }

@@ -1,9 +1,11 @@
 package com.leonardofadul.schoolSystem.services;
 
+import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
+import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
 import com.leonardofadul.schoolSystem.services.exceptions.DataIntegrityException;
@@ -27,6 +29,9 @@ public class ProfessorService {
 
     @Autowired
     private SubjectRepository subjectRepository;
+
+    @Autowired
+    private ClassGradeRepository classGradeRepository;
 
     // Students
     public Student findStudent(Integer id){
@@ -85,6 +90,11 @@ public class ProfessorService {
         return subject.orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id + ". Type: " + Subject.class.getName()));
     }
 
+    public Subject findSubjectByName(String name){
+        Optional<Subject> subject = Optional.ofNullable(subjectRepository.findByName(name));
+        return subject.orElseThrow(() -> new ObjectNotFoundException("Object not found. Name: " + name + ". Type: " + Subject.class.getName()));
+    }
+
     public Subject insertSubject(Subject subject) {
         subject.setId(null);
         return subjectRepository.save(subject);
@@ -124,6 +134,21 @@ public class ProfessorService {
     }
 
     public Subject fromSubjectDTO(SubjectDTO subjectDTO) {
+
         return new Subject(subjectDTO.getId(), subjectDTO.getName());
+    }
+
+    public Student addSubjectToStudent(Subject subject, Student student) {
+        ClassGrade newCG = new ClassGrade(subject, student);
+        classGradeRepository.save(newCG);
+
+        student.getGrades().add(newCG);
+        subject.getGrades().add(newCG);
+
+        student.getSubjects().add(subject);
+        subject.getStudents().add(student);
+
+        subjectRepository.save(subject);
+        return studentRepository.save(student);
     }
 }
