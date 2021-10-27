@@ -17,10 +17,10 @@ public class Student implements Serializable {
     private String email;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.student")
+    @OneToMany(mappedBy = "id.student", cascade = CascadeType.ALL)
     private Set<ClassGrade> grades = new HashSet<>();
 
     // Constructors

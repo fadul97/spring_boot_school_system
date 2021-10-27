@@ -61,8 +61,8 @@ public class ProfessorService {
     }
 
     public void deleteStudent(Integer id) {
+        findStudent(id);
         try{
-            findStudent(id);
             studentRepository.deleteById(id);
         } catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Failed. It is not possible to delete a student that still has classes.");
@@ -116,8 +116,8 @@ public class ProfessorService {
     }
 
     public void deleteSubject(Integer id) {
+        findSubject(id);
         try{
-            findSubject(id);
             subjectRepository.deleteById(id);
         } catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Failed. It is not possible to delete a class that still has students enrolled.");
