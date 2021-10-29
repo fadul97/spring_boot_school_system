@@ -5,6 +5,7 @@ import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
 import com.leonardofadul.schoolSystem.dto.StudentNewDTO;
+import com.leonardofadul.schoolSystem.dto.StudentOnlyDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,10 @@ public class StudentResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentDTO>> findAll(){
+    public ResponseEntity<List<StudentOnlyDTO>> findAll(){
         List<Student> students = professorService.findAllStudents();
-        List<StudentDTO> studentDTOList = students.stream().map(StudentDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok().body(studentDTOList);
+        List<StudentOnlyDTO> studentOnlyDTOList = students.stream().map(StudentOnlyDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(studentOnlyDTOList);
     }
 
     @GetMapping(value = "/page")

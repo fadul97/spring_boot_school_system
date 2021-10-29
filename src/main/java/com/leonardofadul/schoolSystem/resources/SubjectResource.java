@@ -2,6 +2,7 @@ package com.leonardofadul.schoolSystem.resources;
 
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
+import com.leonardofadul.schoolSystem.dto.SubjectOnlyDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,10 +56,10 @@ public class SubjectResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<SubjectDTO>> findAll(){
+    public ResponseEntity<List<SubjectOnlyDTO>> findAll(){
         List<Subject> subjects = professorService.findAllSubjects();
-        List<SubjectDTO> subjectDTOList = subjects.stream().map(SubjectDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok().body(subjectDTOList);
+        List<SubjectOnlyDTO> subjectOnlyDTOList = subjects.stream().map(SubjectOnlyDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(subjectOnlyDTOList);
     }
 
     @GetMapping(value = "/page")

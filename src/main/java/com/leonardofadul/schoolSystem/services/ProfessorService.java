@@ -157,6 +157,9 @@ public class ProfessorService {
         return studentRepository.save(student);
     }
 
+
+
+    // ClassGrades
     public ClassGrade findClassGradeWithName(Student student, ClassGrade classGradeFromRequest) {
         Optional<ClassGrade> classGrade = Optional.ofNullable(classGradeRepository.findByClassNameAndStudentName(classGradeFromRequest.getClassName(), student.getName()));
         return classGrade.orElseThrow(() -> new ObjectNotFoundException("Object not found. Class name: " + classGradeFromRequest.getClassName() + ". Type: " + Subject.class.getName() + ". Name: " + student.getName() + ". Type: " + Student.class.getName()));
