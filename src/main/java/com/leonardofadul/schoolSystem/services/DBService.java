@@ -52,6 +52,12 @@ public class DBService {
         s4.getStudents().addAll(Arrays.asList(st1, st2, st6));
         s5.getStudents().addAll(Arrays.asList(st1, st2, st3, st4, st5));
 
+        s1.setSize(s1.getStudents().size());
+        s2.setSize(s2.getStudents().size());
+        s3.setSize(s3.getStudents().size());
+        s4.setSize(s4.getStudents().size());
+        s5.setSize(s5.getStudents().size());
+
         studentRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6, st7, st8));
         subjectRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5));
 
