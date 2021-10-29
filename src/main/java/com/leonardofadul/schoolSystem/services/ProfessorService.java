@@ -157,13 +157,18 @@ public class ProfessorService {
         return studentRepository.save(student);
     }
 
+    public ClassGrade findClassGradeWithName(Student student, ClassGrade classGradeFromRequest) {
+        Optional<ClassGrade> classGrade = Optional.ofNullable(classGradeRepository.findByClassNameAndStudentName(classGradeFromRequest.getClassName(), student.getName()));
+        return classGrade.orElseThrow(() -> new ObjectNotFoundException("Object not found. Class name: " + classGradeFromRequest.getClassName() + ". Type: " + Subject.class.getName() + ". Name: " + student.getName() + ". Type: " + Student.class.getName()));
+    }
+
     public ClassGrade findClassGrade(ClassGrade classGradeFromRequest) {
-        Optional<ClassGrade> classGrade = Optional.ofNullable(classGradeRepository.findByClassNameAndStudentName(classGradeFromRequest.getClassName(), classGradeFromRequest.getStudentName()));;
+        Optional<ClassGrade> classGrade = Optional.ofNullable(classGradeRepository.findByClassNameAndStudentName(classGradeFromRequest.getClassName(), classGradeFromRequest.getStudentName()));
         return classGrade.orElseThrow(() -> new ObjectNotFoundException("Object not found. Class name: " + classGradeFromRequest.getClassName() + ". Type: " + Subject.class.getName() + ". Student name: " + classGradeFromRequest.getStudentName() + ". Type: " + Student.class.getName()));
     }
 
-    public ClassGrade updateGrade(ClassGrade classGrade){
-        ClassGrade newClassGrade = findClassGrade(classGrade);
+    public ClassGrade updateGrade(Student student, ClassGrade classGrade){
+        ClassGrade newClassGrade = findClassGradeWithName(student, classGrade);
         updateClassGradeData(newClassGrade, classGrade);
         return classGradeRepository.save(newClassGrade);
     }

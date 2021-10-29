@@ -82,10 +82,11 @@ public class StudentResource {
         return ResponseEntity.ok().body(student);
     }
 
-    @RequestMapping(value = "/changeGrades", method = RequestMethod.PUT)
-    public ResponseEntity<ClassGrade> changeGrade(@Valid @RequestBody ClassGrade classGradeFromRequest){
-        ClassGrade classGrade = professorService.findClassGrade(classGradeFromRequest);
-        classGrade = professorService.updateGrade(classGradeFromRequest);
+    @RequestMapping(value = "/{id}/changeGrades", method = RequestMethod.PUT)
+    public ResponseEntity<ClassGrade> changeGrade(@PathVariable Integer id, @Valid @RequestBody ClassGrade classGradeFromRequest){
+        Student student = professorService.findStudent(id);
+        ClassGrade classGrade = professorService.findClassGradeWithName(student, classGradeFromRequest);
+        classGrade = professorService.updateGrade(student, classGradeFromRequest);
         return ResponseEntity.ok().body(classGrade);
     }
 }
