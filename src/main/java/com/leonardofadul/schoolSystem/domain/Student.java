@@ -14,6 +14,8 @@ public class Student implements Serializable {
     private Integer id;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
 
     @JsonIgnore

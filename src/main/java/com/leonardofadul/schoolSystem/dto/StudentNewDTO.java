@@ -2,7 +2,7 @@ package com.leonardofadul.schoolSystem.dto;
 
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.SubjectGrade;
-import com.leonardofadul.schoolSystem.services.validations.StudentUpdate;
+import com.leonardofadul.schoolSystem.services.validations.StudentInsert;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -11,8 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@StudentUpdate
-public class StudentDTO {
+@StudentInsert
+public class StudentNewDTO {
 
     private Integer id;
 
@@ -26,10 +26,10 @@ public class StudentDTO {
 
     private Set<SubjectGrade> subjects = new HashSet<>();
 
-    public StudentDTO() {
+    public StudentNewDTO() {
     }
 
-    public StudentDTO(Student student){
+    public StudentNewDTO(Student student){
         this.id = student.getId();
         this.name = student.getName();
         this.email = student.getEmail();

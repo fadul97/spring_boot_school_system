@@ -4,6 +4,7 @@ import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
+import com.leonardofadul.schoolSystem.dto.StudentNewDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
@@ -80,6 +81,10 @@ public class ProfessorService {
 
     public Student fromStudentDTO(StudentDTO studentDTO) {
         return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getEmail());
+    }
+
+    public Student fromStudentNewDTO(StudentNewDTO studentNewDTO) {
+        return new Student(studentNewDTO.getId(), studentNewDTO.getName(), studentNewDTO.getEmail());
     }
 
 

@@ -4,6 +4,7 @@ import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
+import com.leonardofadul.schoolSystem.dto.StudentNewDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class StudentResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody StudentDTO studentDTO){
-        Student student = professorService.fromStudentDTO(studentDTO);
+    public ResponseEntity<Void> insert(@Valid @RequestBody StudentNewDTO studentNewDTO){
+        Student student = professorService.fromStudentNewDTO(studentNewDTO);
         student = professorService.insertStudent(student);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(student.getId()).toUri();
         return ResponseEntity.created(uri).build();
