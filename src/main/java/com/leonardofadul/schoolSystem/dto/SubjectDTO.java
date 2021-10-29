@@ -19,6 +19,7 @@ public class SubjectDTO implements Serializable {
     private String name;
 
     private Set<StudentGrade> students = new HashSet<>();
+    private Integer size;
 
     public SubjectDTO(){
     }
@@ -27,6 +28,7 @@ public class SubjectDTO implements Serializable {
         this.id = subject.getId();
         this.name = subject.getName();
         this.students = subject.getGrades().stream().map(StudentGrade::new).collect(Collectors.toSet());
+        this.size = students.size();
     }
 
     public Integer getId() {
@@ -51,5 +53,13 @@ public class SubjectDTO implements Serializable {
 
     public void setStudents(Set<StudentGrade> students) {
         this.students = students;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

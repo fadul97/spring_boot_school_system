@@ -65,14 +65,14 @@ public class StudentResource {
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<StudentDTO>> findStudentsPage(
+    public ResponseEntity<Page<StudentOnlyDTO>> findStudentsPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction){
         Page<Student> students = professorService.findStudentPage(page, linesPerPage, orderBy, direction);
-        Page<StudentDTO> studentDTOs = students.map(StudentDTO::new);
-        return ResponseEntity.ok().body(studentDTOs);
+        Page<StudentOnlyDTO> studentOnlyDTOs = students.map(StudentOnlyDTO::new);
+        return ResponseEntity.ok().body(studentOnlyDTOs);
     }
 
     @RequestMapping(value = "/{id}/addSubjects", method = RequestMethod.PUT)

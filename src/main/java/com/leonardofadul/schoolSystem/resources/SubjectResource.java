@@ -63,13 +63,13 @@ public class SubjectResource {
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<SubjectDTO>> findSubjectsPage(
+    public ResponseEntity<Page<SubjectOnlyDTO>> findSubjectsPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction){
         Page<Subject> subjects = professorService.findSubjectPage(page, linesPerPage, orderBy, direction);
-        Page<SubjectDTO> subjectDTOs = subjects.map(SubjectDTO::new);
-        return ResponseEntity.ok().body(subjectDTOs);
+        Page<SubjectOnlyDTO> subjectOnlyDTOs = subjects.map(SubjectOnlyDTO::new);
+        return ResponseEntity.ok().body(subjectOnlyDTOs);
     }
 }

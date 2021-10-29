@@ -23,6 +23,8 @@ public class Subject implements Serializable {
     )
     private List<Student> students = new ArrayList<>();
 
+    private Integer size;
+
     @JsonIgnore
     @OneToMany(mappedBy = "id.subject")
     private Set<ClassGrade> grades = new HashSet<>();
@@ -67,6 +69,14 @@ public class Subject implements Serializable {
 
     public void setGrades(Set<ClassGrade> grades) {
         this.grades = grades;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     // Equals and hashCode
