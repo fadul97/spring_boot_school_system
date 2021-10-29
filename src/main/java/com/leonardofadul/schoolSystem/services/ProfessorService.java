@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class ProfessorService {
@@ -151,7 +152,25 @@ public class ProfessorService {
         subject.getGrades().add(newCG);
 
         student.getSubjects().add(subject);
-        subject.getStudents().add(student);
+
+        AtomicBoolean isStudentEnrolled = new AtomicBoolean(false);
+        subject.getStudents().forEach(student1 -> {
+            if(student1.equals(student)){
+                isStudentEnrolled.set(true);
+            }
+        });
+
+        if(!isStudentEnrolled.get()){
+            subject.getStudents().add(student);
+            subject.setSize(subject.getStudents().size());
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+            System.out.println("ADICIONANDO MAIS UM ESTUDANTE");
+        }
 
         subjectRepository.save(subject);
         return studentRepository.save(student);

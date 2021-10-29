@@ -89,6 +89,5 @@ public class DBService {
         s5.getGrades().addAll(Arrays.asList(cg11, cg12, cg13, cg14, cg15));
 
         classGradeRepository.saveAll(Arrays.asList(cg1, cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9, cg10, cg11, cg12, cg13, cg14, cg15));
-
     }
 }

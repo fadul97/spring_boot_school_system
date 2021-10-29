@@ -23,7 +23,7 @@ public class Subject implements Serializable {
     )
     private List<Student> students = new ArrayList<>();
 
-    private Integer size;
+    private Integer size = 0;
 
     @JsonIgnore
     @OneToMany(mappedBy = "id.subject")
