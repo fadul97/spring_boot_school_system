@@ -2,6 +2,7 @@ package com.leonardofadul.schoolSystem.dto;
 
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.SubjectGrade;
+import com.leonardofadul.schoolSystem.domain.enums.Profile;
 import com.leonardofadul.schoolSystem.services.validations.StudentUpdate;
 import org.hibernate.validator.constraints.Length;
 
@@ -26,6 +27,8 @@ public class StudentDTO {
 
     private Set<SubjectGrade> subjects = new HashSet<>();
 
+    private Set<Profile> profiles = new HashSet<>();
+
     public StudentDTO() {
     }
 
@@ -34,6 +37,7 @@ public class StudentDTO {
         this.name = student.getName();
         this.email = student.getEmail();
         this.subjects = student.getGrades().stream().map(SubjectGrade::new).collect(Collectors.toSet());
+        this.profiles = student.getProfiles();
     }
 
     public Integer getId() {
@@ -66,5 +70,13 @@ public class StudentDTO {
 
     public void setSubjects(Set<SubjectGrade> subjects) {
         this.subjects = subjects;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void addProfile(Profile profile){
+        profiles.add(profile);
     }
 }

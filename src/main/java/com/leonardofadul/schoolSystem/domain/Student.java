@@ -1,10 +1,12 @@
 package com.leonardofadul.schoolSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.leonardofadul.schoolSystem.domain.enums.Profile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Student implements Serializable {
@@ -21,6 +23,10 @@ public class Student implements Serializable {
     @JsonIgnore
     private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "STUDENT_PROFILES")
+    private Set<Integer> profiles = new HashSet<>();
+
     @JsonIgnore
     @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
@@ -30,6 +36,7 @@ public class Student implements Serializable {
 
     // Constructors
     public Student() {
+        addProfile(Profile.STUDENT);
     }
 
     public Student(Integer id, String name, String email, String password) {
@@ -37,6 +44,7 @@ public class Student implements Serializable {
         this.name = name;
         this.email = email;
         this.password = password;
+        addProfile(Profile.STUDENT);
     }
 
     // Getters and Setters
@@ -95,6 +103,14 @@ public class Student implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profile profile){
+        profiles.add(profile.getCode());
     }
 
     // Equals and hashCode

@@ -1,12 +1,15 @@
 package com.leonardofadul.schoolSystem.services;
 
 import com.leonardofadul.schoolSystem.domain.ClassGrade;
+import com.leonardofadul.schoolSystem.domain.Professor;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
 import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
+import com.leonardofadul.schoolSystem.repositories.ProfessorRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -28,6 +34,10 @@ public class DBService {
     private BCryptPasswordEncoder pe;
 
     public void instantiateTestDataBase(){
+        Professor professor1 = new Professor(null, "Aline", "aline@gmail.com", pe.encode("aline123"));
+
+        professorRepository.save(professor1);
+
         Student st1 = new Student(null, "Bruno", "bruno@gmail.com", pe.encode("123"));
         Student st2 = new Student(null, "Renato", "renato@gmail.com", pe.encode("0000"));
         Student st3 = new Student(null, "Ana Claudia", "ana@gmail.com", pe.encode("ana123"));
