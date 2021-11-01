@@ -7,6 +7,7 @@ import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,12 +23,14 @@ public class SubjectResource {
     @Autowired
     private ProfessorService professorService;
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<SubjectDTO> find(@PathVariable Integer id){
         Subject subject = professorService.findSubject(id);
         return ResponseEntity.ok().body(new SubjectDTO(subject));
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody SubjectDTO subjectDTO){
         Subject subject = professorService.fromSubjectDTO(subjectDTO);
@@ -36,6 +39,7 @@ public class SubjectResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody SubjectDTO updatedSubjectDTO, @PathVariable Integer id){
         Subject newSubject = professorService.fromSubjectDTO(updatedSubjectDTO);
@@ -49,6 +53,7 @@ public class SubjectResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Subject> delete(@PathVariable Integer id){
         professorService.deleteSubject(id);

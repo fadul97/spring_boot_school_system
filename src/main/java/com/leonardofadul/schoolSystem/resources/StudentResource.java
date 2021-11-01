@@ -11,6 +11,7 @@ import com.leonardofadul.schoolSystem.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,7 @@ public class StudentResource {
         return ResponseEntity.ok().body(new StudentDTO(student));
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody StudentNewDTO studentNewDTO){
         Student student = professorService.fromStudentNewDTO(studentNewDTO);
@@ -51,12 +53,14 @@ public class StudentResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Student> delete(@PathVariable Integer id){
         professorService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @GetMapping
     public ResponseEntity<List<StudentOnlyDTO>> findAll(){
         List<Student> students = professorService.findAllStudents();
@@ -64,6 +68,7 @@ public class StudentResource {
         return ResponseEntity.ok().body(studentOnlyDTOList);
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @GetMapping(value = "/page")
     public ResponseEntity<Page<StudentOnlyDTO>> findStudentsPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -75,6 +80,7 @@ public class StudentResource {
         return ResponseEntity.ok().body(studentOnlyDTOs);
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @RequestMapping(value = "/{id}/addSubjects", method = RequestMethod.PUT)
     public ResponseEntity<Student> addSubject(@PathVariable Integer id, @Valid @RequestBody SubjectDTO subjectDTO){
         Student student = professorService.findStudent(id);
@@ -83,6 +89,7 @@ public class StudentResource {
         return ResponseEntity.ok().body(student);
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @RequestMapping(value = "/{id}/changeGrades", method = RequestMethod.PUT)
     public ResponseEntity<ClassGrade> changeGrade(@PathVariable Integer id, @Valid @RequestBody ClassGrade classGradeFromRequest){
         Student student = professorService.findStudent(id);
