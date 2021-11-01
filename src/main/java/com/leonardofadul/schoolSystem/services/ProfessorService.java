@@ -3,12 +3,15 @@ package com.leonardofadul.schoolSystem.services;
 import com.leonardofadul.schoolSystem.domain.ClassGrade;
 import com.leonardofadul.schoolSystem.domain.Student;
 import com.leonardofadul.schoolSystem.domain.Subject;
+import com.leonardofadul.schoolSystem.domain.enums.Profile;
 import com.leonardofadul.schoolSystem.dto.StudentDTO;
 import com.leonardofadul.schoolSystem.dto.StudentNewDTO;
 import com.leonardofadul.schoolSystem.dto.SubjectDTO;
 import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
+import com.leonardofadul.schoolSystem.security.UserSS;
+import com.leonardofadul.schoolSystem.services.exceptions.AuthorizationException;
 import com.leonardofadul.schoolSystem.services.exceptions.DataIntegrityException;
 import com.leonardofadul.schoolSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,10 @@ public class ProfessorService {
 
     // Students
     public Student findStudent(Integer id){
+        UserSS user = UserService.authenticated();
+        if(user == null || !user.hasRole(Profile.PROFESSOR) && !id.equals(user.getId())){
+            throw new AuthorizationException("Access denied");
+        }
         Optional<Student> student = studentRepository.findById(id);
         return student.orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id + ". Type: " + Student.class.getName()));
     }
