@@ -46,12 +46,38 @@ public class DBService {
         Student st6 = new Student(null, "Ronaldo Nazario", "ronaldo@gmail.com", pe.encode("ronaldo123"));
         Student st7 = new Student(null, "Cecilia Lima", "cecilia@gmail.com", pe.encode("cecilia123"));
         Student st8 = new Student(null, "Lucas Rodriguez", "lucas@gmail.com", pe.encode("lucas123"));
+        Student st9 = new Student(null, "Leandro Algane", "leandro@gmail.com", pe.encode("leandro123"));
+        Student st10 = new Student(null, "José Eduardo", "jose@gmail.com", pe.encode("jose123"));
+        Student st11 = new Student(null, "Thiago Oliveira", "thiago@gmail.com", pe.encode("thiago123"));
 
         Subject s1 = new Subject(null, "Math");
         Subject s2 = new Subject(null, "English");
         Subject s3 = new Subject(null, "Biology");
         Subject s4 = new Subject(null, "Chemistry");
         Subject s5 = new Subject(null, "Portuguese");
+        Subject s6 = new Subject(null, "Data Structure");
+        Subject s7 = new Subject(null, "Physics");
+        Subject s8 = new Subject(null, "Algorithms");
+        Subject s9 = new Subject(null, "Embedded Systems");
+        Subject s10 = new Subject(null, "Operating Systems");
+        Subject s11 = new Subject(null, "Software Engineering");
+        Subject s12 = new Subject(null, "Database");
+        Subject s13 = new Subject(null, "Artificial Intelligence");
+        Subject s14 = new Subject(null, "Biochemistry");
+        Subject s15 = new Subject(null, "Compilers");
+        Subject s16 = new Subject(null, "Electronics");
+        Subject s17 = new Subject(null, "Subject 17");
+        Subject s18 = new Subject(null, "Subject 18");
+        Subject s19 = new Subject(null, "Subject 19");
+        Subject s20 = new Subject(null, "Subject 20");
+        Subject s21 = new Subject(null, "Subject 21");
+        Subject s22 = new Subject(null, "Subject 22");
+        Subject s23 = new Subject(null, "Subject 23");
+        Subject s24 = new Subject(null, "Subject 24");
+        Subject s25 = new Subject(null, "Subject 25");
+        Subject s26 = new Subject(null, "Subject 26");
+        Subject s27 = new Subject(null, "Subject 27");
+        Subject s28 = new Subject(null, "Subject 28");
 
         st1.getSubjects().addAll(Arrays.asList(s1, s2, s4, s5));
         st2.getSubjects().addAll(Arrays.asList(s2, s4, s5));
@@ -72,8 +98,8 @@ public class DBService {
         s4.setSize(s4.getStudents().size());
         s5.setSize(s5.getStudents().size());
 
-        studentRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6, st7, st8));
-        subjectRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5));
+        studentRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11));
+        subjectRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28));
 
         ClassGrade cg1 = new ClassGrade(s1, st1);
 
