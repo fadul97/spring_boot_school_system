@@ -16,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,9 @@ public class ProfessorService {
 
     @Autowired
     private ClassGradeRepository classGradeRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     // Students
     public Student findStudent(Integer id){
@@ -81,11 +85,11 @@ public class ProfessorService {
     }
 
     public Student fromStudentDTO(StudentDTO studentDTO) {
-        return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getEmail());
+        return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getEmail(), null);
     }
 
     public Student fromStudentNewDTO(StudentNewDTO studentNewDTO) {
-        return new Student(studentNewDTO.getId(), studentNewDTO.getName(), studentNewDTO.getEmail());
+        return new Student(studentNewDTO.getId(), studentNewDTO.getName(), studentNewDTO.getEmail(), pe.encode(studentNewDTO.getPassword()));
     }
 
 

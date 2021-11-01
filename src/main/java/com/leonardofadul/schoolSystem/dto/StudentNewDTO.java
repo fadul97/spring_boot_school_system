@@ -24,6 +24,9 @@ public class StudentNewDTO {
     @Email
     private String email;
 
+    @NotEmpty
+    private String password;
+
     private Set<SubjectGrade> subjects = new HashSet<>();
 
     public StudentNewDTO() {
@@ -66,5 +69,13 @@ public class StudentNewDTO {
 
     public void setSubjects(Set<SubjectGrade> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

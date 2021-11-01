@@ -7,6 +7,7 @@ import com.leonardofadul.schoolSystem.repositories.ClassGradeRepository;
 import com.leonardofadul.schoolSystem.repositories.StudentRepository;
 import com.leonardofadul.schoolSystem.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -23,15 +24,18 @@ public class DBService {
     @Autowired
     private ClassGradeRepository classGradeRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder pe;
+
     public void instantiateTestDataBase(){
-        Student st1 = new Student(null, "Bruno", "bruno@gmail.com");
-        Student st2 = new Student(null, "Renato", "renato@gmail.com");
-        Student st3 = new Student(null, "Ana Claudia", "ana@gmail.com");
-        Student st4 = new Student(null, "Beatriz", "bia@gmail.com");
-        Student st5 = new Student(null, "Roberto Carlos", "roberto@gmail.com");
-        Student st6 = new Student(null, "Ronaldo Nazario", "ronaldo@gmail.com");
-        Student st7 = new Student(null, "Cecilia Lima", "cecilia@gmail.com");
-        Student st8 = new Student(null, "Lucas Rodriguez", "lucas@gmail.com");
+        Student st1 = new Student(null, "Bruno", "bruno@gmail.com", pe.encode("123"));
+        Student st2 = new Student(null, "Renato", "renato@gmail.com", pe.encode("0000"));
+        Student st3 = new Student(null, "Ana Claudia", "ana@gmail.com", pe.encode("ana123"));
+        Student st4 = new Student(null, "Beatriz", "bia@gmail.com", pe.encode("bia123"));
+        Student st5 = new Student(null, "Roberto Carlos", "roberto@gmail.com", pe.encode("roberto123"));
+        Student st6 = new Student(null, "Ronaldo Nazario", "ronaldo@gmail.com", pe.encode("ronaldo123"));
+        Student st7 = new Student(null, "Cecilia Lima", "cecilia@gmail.com", pe.encode("cecilia123"));
+        Student st8 = new Student(null, "Lucas Rodriguez", "lucas@gmail.com", pe.encode("lucas123"));
 
         Subject s1 = new Subject(null, "Math");
         Subject s2 = new Subject(null, "English");

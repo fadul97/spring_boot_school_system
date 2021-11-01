@@ -19,6 +19,9 @@ public class Student implements Serializable {
     private String email;
 
     @JsonIgnore
+    private String password;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 
@@ -29,10 +32,11 @@ public class Student implements Serializable {
     public Student() {
     }
 
-    public Student(Integer id, String name, String email) {
+    public Student(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     // Getters and Setters
@@ -83,6 +87,14 @@ public class Student implements Serializable {
 
     public void setGrades(Set<ClassGrade> grades) {
         this.grades = grades;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     // Equals and hashCode
