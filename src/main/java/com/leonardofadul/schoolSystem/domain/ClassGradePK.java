@@ -15,7 +15,6 @@ public class ClassGradePK implements Serializable {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    // Getters and Setters
     public Subject getSubject() {
         return subject;
     }
@@ -32,7 +31,6 @@ public class ClassGradePK implements Serializable {
         this.student = student;
     }
 
-    // Equals abd hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

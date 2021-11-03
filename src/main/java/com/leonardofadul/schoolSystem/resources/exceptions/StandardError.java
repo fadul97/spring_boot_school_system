@@ -8,14 +8,12 @@ public class StandardError implements Serializable {
     private String message;
     private Long timeStamp;
 
-    // Constructors
     public StandardError(Integer status, String message, Long timeStamp) {
         this.status = status;
         this.message = message;
         this.timeStamp = timeStamp;
     }
 
-    // Getters and Setters
     public Integer getStatus() {
         return status;
     }

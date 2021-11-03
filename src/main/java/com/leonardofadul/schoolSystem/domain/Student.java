@@ -34,7 +34,6 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "id.student", cascade = CascadeType.ALL)
     private Set<ClassGrade> grades = new HashSet<>();
 
-    // Constructors
     public Student() {
         addProfile(Profile.STUDENT);
     }
@@ -47,7 +46,6 @@ public class Student implements Serializable {
         addProfile(Profile.STUDENT);
     }
 
-    // Getters and Setters
     @JsonIgnore
     public List<Subject> getAllSubjects(){
         List<Subject> subjectList = new ArrayList<>();
@@ -113,7 +111,6 @@ public class Student implements Serializable {
         profiles.add(profile.getCode());
     }
 
-    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

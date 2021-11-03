@@ -46,9 +46,6 @@ public class StudentResource {
     public ResponseEntity<Void> update(@Valid @RequestBody StudentDTO updatedStudentDTO, @PathVariable Integer id){
         Student student = professorService.fromStudentDTO(updatedStudentDTO);
         student.setId(id);
-
-//        newStudent.setId(id);
-//        newStudent.setSubjects(student.getSubjects());
         student = professorService.updateStudent(student);
         return ResponseEntity.noContent().build();
     }

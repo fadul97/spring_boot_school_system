@@ -29,7 +29,6 @@ public class Subject implements Serializable {
     @OneToMany(mappedBy = "id.subject")
     private Set<ClassGrade> grades = new HashSet<>();
 
-    // Constructors
     public Subject() {
     }
 
@@ -38,7 +37,6 @@ public class Subject implements Serializable {
         this.name = name;
     }
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -79,7 +77,6 @@ public class Subject implements Serializable {
         this.size = size;
     }
 
-    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

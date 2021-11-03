@@ -27,7 +27,6 @@ public class Professor implements Serializable {
     @CollectionTable(name = "PROFESSOR_PROFILES")
     private Set<Integer> profiles = new HashSet<>();
 
-    // Constructors
     public Professor(){
         addProfile(Profile.PROFESSOR);
     }
@@ -40,7 +39,6 @@ public class Professor implements Serializable {
         addProfile(Profile.PROFESSOR);
     }
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -81,7 +79,6 @@ public class Professor implements Serializable {
         profiles.add(profile.getCode());
     }
 
-    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

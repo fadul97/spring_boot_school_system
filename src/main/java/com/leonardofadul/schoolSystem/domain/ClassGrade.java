@@ -24,7 +24,6 @@ public class ClassGrade implements Serializable {
     private Double grade1;
     private Double grade2;
 
-    // Constructors
     public ClassGrade(){
     }
 
@@ -35,7 +34,6 @@ public class ClassGrade implements Serializable {
         this.studentName = student.getName();
     }
 
-    // Getters and Setters
     @JsonIgnore
     public Subject getSubject(){
         return this.id.getSubject();
@@ -86,7 +84,6 @@ public class ClassGrade implements Serializable {
         this.grade2 = grade2;
     }
 
-    // Equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
